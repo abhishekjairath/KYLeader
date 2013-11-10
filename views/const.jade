@@ -1,0 +1,23 @@
+extend layout
+block content
+  .panel.panel-default
+    .panel-heading #{state}
+      .panel-body
+        p Below are a few constituencies which are part of #{state}
+    
+      
+      table.table
+        thead
+          tr
+            th #
+            th Name
+            th Current MP
+            th Current Party
+        tbody
+          tr
+            td #{num}
+            td
+              a(href='/candidates') #{name}
+            td #{crmp}
+            td #{crpr}
+

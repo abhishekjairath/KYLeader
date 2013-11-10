@@ -1,0 +1,26 @@
+extend layout
+block content
+ form(name='input', action='http://127.0.0.1:1212/insertuser', method= 'post')
+    div  
+      label Username:
+       input(type='text', name='user')
+    div  
+      label Fulll name:
+       input(type='text', name='fullname')
+    div  
+      label Password:
+       input(type='password', name='password')
+    div  
+      label Re-enter password
+       input(type='password', name='re-password')
+    div  
+      label Email id:
+       input(type='text', name='email')
+    div  
+      label Sex:
+       input(type='text', name='sex')
+    div  
+      label City:
+       input(type='text', name='city')
+    div  
+      input(type='submit', value='Submit')

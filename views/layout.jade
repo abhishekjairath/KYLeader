@@ -1,0 +1,15 @@
+!!!5
+html
+  head
+    title #{title} - Know Your Leader
+    link(rel='stylesheet', href='/style.css')
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+  body
+    header
+      img#logo(src='images/logo.jpg')
+      h1 Know Your Leader
+    .container
+      .main-content
+        block content
+    footer
+      p Running on node with Express, Jade and Stylus
