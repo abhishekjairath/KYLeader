@@ -130,10 +130,11 @@ function check_auth_user(username,password,done){
 
 //Constituency Information
 app.get('/state/:sid', function (req, res) {
-  connection.query('select name,current_mp,current_party from constituency where constituency.sid='+req.params.sid+';', function (err,rows,field) {
+  connection.query('select id,name,current_mp,current_party from constituency where constituency.sid='+req.params.sid+';', function (err,rows,field) {
         res.render('const.jade',
          {
           num : '1',
+          consid : rows[0].id,
           name : rows[0].name,
           crmp : rows[0].current_mp,
           crpr : rows[0].current_party
@@ -142,7 +143,31 @@ app.get('/state/:sid', function (req, res) {
     });
 });
 
-
+app.get('/constituency/:id}',function (req,res){
+  connection.query('select cndid,name,age,sex,party_name,category from candidate where cons_id='+req.params.id+';', function (error,rows,field){
+    res.render('candidate.jade',
+    {
+      num1 : '1',
+      name1 : rows[0].name,
+      age1 : rows[0].age,
+      sex1 : rows[0].sex,
+      party1 : rows[0].party_name,
+      category1 : rows[0].category,
+      num2 : '3',
+      name2 : rows[1].name,
+      age2 : rows[1].age,
+      sex2 : rows[1].sex,
+      party2 : rows[1].party_name,
+      category2 : rows[1].category,
+      num3 : '4',
+      name3 : rows[2].name,
+      age3 : rows[2].age,
+      sex3 : rows[2].sex,
+      party3 : rows[2].party_name,
+      category3 : rows[2].category
+    });
+  });
+});
 app.get('/users/:username', function (req, res){
 	connection.query('SELECT * FROM users where username ='+'"'+req.params.username+'"'+';', function (error, rows, fields) { 
          res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -160,6 +185,7 @@ app.get('/users/:username', function (req, res){
 		}
       }); 
 });
+
 
 // Launch server
 app.get('/', function (req, res) {
