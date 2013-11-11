@@ -4,20 +4,20 @@ block content
     .panel-heading #{state}
       .panel-body
         p Below are a few constituencies which are part of #{state}
-    
       
+    
       table.table
         thead
           tr
-            th #
-            th Name
-            th Current MP
-            th Current Party
+            td #
+            td Name
+            td Current MP
+            td Current Party
         tbody
           tr
             td #{num}
             td
-              a(href='/candidates') #{name}
+              a(href='/candidates/'+id) #{name}
             td #{crmp}
             td #{crpr}
 
