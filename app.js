@@ -138,33 +138,32 @@ app.get('/state/:sid', function (req, res) {
           name : rows[0].name,
           crmp : rows[0].current_mp,
           crpr : rows[0].current_party
-         }
-        );  
+         });  
     });
 });
 
-app.get('/constituency/:id}',function (req,res){
-  connection.query('select cndid,name,age,sex,party_name,category from candidate where cons_id='+req.params.id+';', function (error,rows,field){
+app.get('/candidate/:cid',function (req,res){
+  connection.query('select cndid,name,age,sex,party_name,category from candidate where cons_id='+req.params.cid+';', function (error,rows,field){
     res.render('candidate.jade',
     {
-      num1 : '1',
-      name1 : rows[0].name,
-      age1 : rows[0].age,
-      sex1 : rows[0].sex,
-      party1 : rows[0].party_name,
-      category1 : rows[0].category,
-      num2 : '3',
-      name2 : rows[1].name,
-      age2 : rows[1].age,
-      sex2 : rows[1].sex,
-      party2 : rows[1].party_name,
-      category2 : rows[1].category,
-      num3 : '4',
-      name3 : rows[2].name,
-      age3 : rows[2].age,
-      sex3 : rows[2].sex,
-      party3 : rows[2].party_name,
-      category3 : rows[2].category
+      numo : '1',
+      nameo : rows[0].name,
+      ageo : rows[0].age,
+      sexo : rows[0].sex,
+      partyo : rows[0].party_name,
+      categoryo : rows[0].category,
+      numt : '2',
+      namet : rows[1].name,
+      aget : rows[1].age,
+      sext : rows[1].sex,
+      partyt : rows[1].party_name,
+      categoryt : rows[1].category,
+      numh : '3',
+      nameh : rows[2].name,
+      ageh : rows[2].age,
+      sexh : rows[2].sex,
+      partyh : rows[2].party_name,
+      categoryh : rows[2].category
     });
   });
 });

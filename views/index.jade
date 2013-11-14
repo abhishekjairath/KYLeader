@@ -1,10 +1,13 @@
 extend layout
 block content
-    a(href='/loginview') Login
-    br
-    a(href='/registerview') Register
-    form(action='http://127.0.0.1:1212/logout')
-    input#logout(type='button', value='Logout')
+    h1
+      |Welcome!
+    p#user
+            a(href='/loginview') Login
+            br
+            a(href='/registerview') Register
+            form(action='http://127.0.0.1:1212/logout')
+            input#logout(type='button', value='Logout')
     h3  States
     br
     a(href='/state/1') Arunanchal Pradesh

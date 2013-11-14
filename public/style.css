@@ -133,10 +133,16 @@ header {
 }
 .main-content {
   float: left;
-  width: 300px;
+  width: 780px;
 }
 .main-content p {
   margin-bottom: 20px;
+}
+#user {
+  float: right;
+}
+#user .panel {
+  width: 80px;
 }
 .sidebar {
   float: left;
