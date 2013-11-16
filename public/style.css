@@ -126,6 +126,17 @@ header {
   float: left;
   margin-top: -21px;
 }
+#username {
+  float: right;
+  margin-right: 80px;
+  margin-top: -15px;
+  font-size: 15px;
+  color: #000;
+}
+#logout {
+  background: none;
+  border: none;
+}
 .container {
   width: 800px;
   margin: 50px auto;

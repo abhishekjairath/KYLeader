@@ -65,7 +65,6 @@ app.get('/registerview', function (req, res) {
   );
 });
 app.post('/insertuser', function (req, res){
-  console.log("POST: ");
   username = req.body.user;
   password=req.body.password;
   fullname = req.body.fullname;
@@ -74,7 +73,7 @@ app.post('/insertuser', function (req, res){
   city = req.body.city;
   connection.query('insert into users ( username ,password,fullname , email , sex , city ) values (' + '"' + username +'"' +',' + '"'+password + '"' + ',' + '"' + fullname +'"'+','+'"'+email+'"' + ',' + '"' + sex +'"' +','  + '"' + city +'"' +');', function (error, rows, fields) { 
 		        res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.end( 'record inserted...');
+            res.end('recorded');
 		      }); 
 });
 
@@ -84,11 +83,13 @@ app.get('/loginview', function (req, res) {
   { title : 'Login' }
   );
 });
-app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/loginview'
-                                 })
-);
+
+app.post("/login" 
+                ,passport.authenticate('local',{
+                        successRedirect : "/",
+                        failureRedirect : "/loginview",
+                })
+        );
 
 app.get('/logout', function (req, res){
   req.logout();
@@ -110,7 +111,7 @@ function check_auth_user(username,password,done){
                     done(null,res);
                 });
  
-                passport.deserializeUser(function(id, done) {
+                passport.deserializeUser(function(res, done) {
                     done(null,res);
  
                 });
@@ -122,30 +123,41 @@ function check_auth_user(username,password,done){
             {
               return done(null, false); 
             }
- 
-        });
- 
-}
+         });
+  }
 
 
 //Constituency Information
 app.get('/state/:sid', function (req, res) {
-  connection.query('select id,name,current_mp,current_party from constituency where constituency.sid='+req.params.sid+';', function (err,rows,field) {
+  var x=req.params.sid;
+  var u=req.user.username;
+ connection.query('SELECT sname FROM  `state` WHERE sid ='+x+';',function (err,result,field){
+   var y=result[0].sname;
+  connection.query('select id,name,current_mp,current_party from constituency where constituency.sid='+x+';', function (err,rows,field) {
         res.render('const.jade',
          {
+          user : req.user.username,
+          uname : u,
+          state : y,
           num : '1',
           consid : rows[0].id,
           name : rows[0].name,
           crmp : rows[0].current_mp,
           crpr : rows[0].current_party
          });  
-    });
+      });
+   });
 });
 
 app.get('/candidate/:cid',function (req,res){
-  connection.query('select cndid,name,age,sex,party_name,category from candidate where cons_id='+req.params.cid+';', function (error,rows,field){
+ var u=req.user.username;
+ connection.query('select name from constituency where id='+req.params.cid+';',function (err,result,field){
+    connection.query('select cndid,name,age,sex,party_name,category from candidate where cons_id='+req.params.cid+';', function (error,rows,field){
     res.render('candidate.jade',
     {
+      user : req.user.username,
+      uname : u,
+      consname : result[0].name,
       numo : '1',
       nameo : rows[0].name,
       ageo : rows[0].age,
@@ -165,34 +177,43 @@ app.get('/candidate/:cid',function (req,res){
       partyh : rows[2].party_name,
       categoryh : rows[2].category
     });
+   }); 
   });
 });
-app.get('/users/:username', function (req, res){
+app.get('/:username', function (req, res){
 	connection.query('SELECT * FROM users where username ='+'"'+req.params.username+'"'+';', function (error, rows, fields) { 
-         res.writeHead(200, {'Content-Type': 'text/plain'});
-		 str='';
-		 if(rows==null)
-		 {
-			res.end( 'no such record found...');
-			//break;
-		 }
-		 else
-		 {
-			str = str + 'User is '+ rows[0].username +'\n';
-			console.log(str);
-			res.end( str);
-		}
+       res.render('profile.jade',
+       {
+        uname : req.user.username,
+        user : rows[0].username,
+        name : rows[0].fullname,
+        sex : rows[0].sex,
+        city : rows[0].city,
+        email : rows[0].email
+       })  
       }); 
 });
 
 
 // Launch server
-app.get('/', function (req, res) {
-  res.render('index',
-  { title : 'Home',
+function loggedIn(req, res){
+  if (req.user) {
+   var u=req.user.username;
+   res.render('index',
+  { 
+    uname : u,
+    user : req.user.username,
+    title : 'Home',
     scripts: ['public/js/main.js']
    }
   )
-})
+
+   } 
+   else {
+    res.redirect('/loginview');
+  }
+}
+app.get('/',loggedIn,function (req, res) {
+});
 app.listen(1212);
 console.log('Server running at http://127.0.0.1:1212');

@@ -4,12 +4,20 @@ html
     title #{title} - Know Your Leader
     link(rel='stylesheet', href='/style.css')
     link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+     
   body
     header
-      img#logo(src='images/logo.jpg')
+      a(href='/')
+       img#logo(src='images/logo.jpg')
       h1 Know Your Leader
+      #username
+       a(href='/'+uname ) 
+        Welcome  #{user}
+       br
+       a(href='/logout', method= 'get') Logout
+      block header 
     .container
       .main-content
         block content
     footer
-      p Running on node with Express, Jade and Stylus
+      p All rights reserved. A 3rd semester project developed @JIIT 
