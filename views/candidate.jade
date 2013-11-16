@@ -1,18 +1,24 @@
 extend layout
 block content
   .panel.panel-default
-    .panel-heading 
+      .panel-heading 
+        h3 #{consname}
       .panel-body
-        p Rate the following candidates who standing from 
+        p Rate the following candidates who are standing from #{consname} 
       table.table
-        thead
-          tr
-            th #
-            th Name
-            th Sex
-            th Age
-            th Party
-            th Category
+        tr
+            th 
+             b #
+            th 
+             b Name
+            th 
+             b Sex
+            th 
+             b Age
+            th 
+             b Party
+            th 
+             b Category
         tbody
           tr
             td #{numo}
