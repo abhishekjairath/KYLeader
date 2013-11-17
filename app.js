@@ -175,16 +175,19 @@ app.get('/candidate/:cid',function (req,res){
       ageh : rows[2].age,
       sexh : rows[2].sex,
       partyh : rows[2].party_name,
-      categoryh : rows[2].category
+      categoryh : rows[2].category,
+      cido : rows[0].cndid,
+      cidt : rows[1].cndid,
+      cidh : rows[2].cndid
     });
    }); 
   });
 });
-app.get('/:username', function (req, res){
+app.get('/profile/:username', function (req, res){
 	connection.query('SELECT * FROM users where username ='+'"'+req.params.username+'"'+';', function (error, rows, fields) { 
        res.render('profile.jade',
        {
-        uname : req.user.username,
+        uname : req.params.username,
         user : rows[0].username,
         name : rows[0].fullname,
         sex : rows[0].sex,
@@ -194,7 +197,19 @@ app.get('/:username', function (req, res){
       }); 
 });
 
+app.post('/vote/:cid',function (req,res){
+  stars=req.body.rate;
+  connection.query('insert into poll ( uname , cid, stars ) values (' + '"' + req.user.username +'"' +',' + req.params.cid + ',' + stars +');', function (error, rows, fields) { 
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+            res.end('Vote Registered');
+          });
+});
 
+app.get('/delete',function (req,res){
+ connection.query('delete from users where username="'+req.user.username+'";')
+ req.logout();
+ res.redirect('/');
+});
 // Launch server
 function loggedIn(req, res){
   if (req.user) {

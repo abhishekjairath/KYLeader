@@ -1,7 +1,7 @@
 extend layout
 block content
    .panel.panel-default
-     .panel-heading 
+    .panel-heading 
        h3 #{user} 
     .panel-body
          |Name : #{name}
@@ -11,5 +11,10 @@ block content
          |Email : #{email}
          br
          |City : #{city}
-                
+         br
+         br
+         form(action="http://127.0.0.1:1212/delete",method="get")
+           input(type='submit', class='btn btn-danger', value='Delete User')
+
+    
       

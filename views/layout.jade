@@ -4,14 +4,14 @@ html
     title #{title} - Know Your Leader
     link(rel='stylesheet', href='/style.css')
     link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
-     
+
   body
     header
       a(href='/')
        img#logo(src='images/logo.jpg')
       h1 Know Your Leader
       #username
-       a(href='/'+uname ) 
+       a(href='/profile/'+uname ) 
         Welcome  #{user}
        br
        a(href='/logout', method= 'get') Logout
@@ -20,4 +20,7 @@ html
       .main-content
         block content
     footer
-      p All rights reserved. A 3rd semester project developed @JIIT 
+      p All rights reserved.
+    script(src='/js/jquery-1.9.1.min.js')
+    script(src='/booststrap/js/bootstrap.min.js')     
+    

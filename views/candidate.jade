@@ -19,6 +19,8 @@ block content
              b Party
             th 
              b Category
+            th
+             b Rating 
         tbody
           tr
             td #{numo}
@@ -27,6 +29,9 @@ block content
             td #{sexo}
             td #{partyo}
             td #{categoryo}
+            td 
+             form(name="vote",method="post", action="http://127.0.0.1:1212/vote/"+cido)
+              input(type='number',name="rate",class='rating')
           tr
             td #{numt}
             td #{namet}
@@ -34,6 +39,10 @@ block content
             td #{sext}
             td #{partyt}
             td #{categoryt}
+            td 
+             form(name="vote",method="post", action="http://127.0.0.1:1212/vote/"+cidt)
+              input(type='number',name="rate",class='rating')
+          
           tr
             td #{numh}
             td #{nameh}
@@ -41,4 +50,7 @@ block content
             td #{sexh}
             td #{partyh}
             td #{categoryh}
-      
+            td 
+             form(name="vote",method="post", action="http://127.0.0.1:1212/vote/"+cidh)
+              input(type='number',name="rate",class='rating')
+           
